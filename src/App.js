@@ -1,12 +1,11 @@
-import "./App.css";
+import AddTaskSection from "./components/AddTaskSection";
 import Header from "./components/Header";
 
 function App() {
   return (
-    <div className="App">
-      <div className="container">
-        <Header />
-      </div>
+    <div className="container">
+      <Header />
+      <AddTaskSection />
     </div>
   );
 }
