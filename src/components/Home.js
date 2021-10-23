@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { PopupDisplayContext } from "../context/PopupDisplayContext";
 import AddTaskSection from "./AddTaskSection";
 import CompletedTaskList from "./CompletedTaskList";
 import Header from "./Header";

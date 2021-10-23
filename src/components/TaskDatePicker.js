@@ -3,7 +3,6 @@ import { BsCalendarCheck } from "react-icons/bs";
 import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import styled from "styled-components";
-import { dateFormatter } from "../utils/dateFormatter";
 
 const StyledDatePicker = styled.div`
   .custom-date-picker {

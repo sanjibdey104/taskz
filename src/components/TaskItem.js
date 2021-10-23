@@ -45,14 +45,7 @@ const TaskItem = ({ task }) => {
   const [isComplete, setIsComplete] = useState(false);
   const { dispatch } = useContext(TaskContext);
   const { id, title, taskDate, subtasks } = task;
-  const dateFormatOptions = {
-    weekday: "short",
-    day: "numeric",
-    month: "short",
-  };
-
   const formattedTaskDate = dateFormatter(taskDate);
-  console.log(dateFormatter(taskDate));
   const ongoingSubtasks = subtasks.filter((task) => !task.isComplete);
 
   const handleTaskStatus = (task) => {
