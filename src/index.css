@@ -23,6 +23,11 @@ body {
   height: 100%;
 }
 
+img,
+svg {
+  display: block;
+}
+
 button,
 input,
 textarea {
@@ -32,8 +37,13 @@ textarea {
 .container {
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  position: relative;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: black;
 }

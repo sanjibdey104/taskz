@@ -4,17 +4,17 @@ import styled from "styled-components";
 const StyledHeader = styled.header`
   width: 100%;
   display: flex;
-  gap: 2rem;
-  padding: 1rem 2rem;
   justify-content: center;
   align-items: center;
+  padding: 1rem;
   position: relative;
+  box-shadow: 3px 0 8px rgba(0, 0, 0, 0.3);
 
   .profile-photo {
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2.75rem;
+    height: 2.75rem;
     border-radius: 50%;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2), inset 0 0 3px rgba(0, 0, 0, 0.3);
     padding: 0.3rem;
     position: absolute;
     right: 2rem;

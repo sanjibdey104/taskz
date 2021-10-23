@@ -1,0 +1,32 @@
+import React, { useContext } from "react";
+import styled from "styled-components";
+import { PopupDisplayContext } from "../context/PopupDisplayContext";
+import AddTaskSection from "./AddTaskSection";
+import CompletedTaskList from "./CompletedTaskList";
+import Header from "./Header";
+import TaskList from "./TaskList";
+
+const StyledHome = styled.section`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.5rem;
+  position: relative;
+  overflow: hidden;
+`;
+
+const Home = () => {
+  const { handlePopupDisplay } = useContext(PopupDisplayContext);
+  return (
+    <StyledHome>
+      <Header />
+      <TaskList />
+      <CompletedTaskList />
+      <AddTaskSection />
+    </StyledHome>
+  );
+};
+
+export default Home;
