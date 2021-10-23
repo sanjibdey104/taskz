@@ -9,7 +9,9 @@ const StyledDatePicker = styled.div`
     font-size: 1.5rem;
     background-color: white;
     border: 0;
-    color: #4c8bf5;
+    svg {
+      color: var(--fg-light);
+    }
   }
 `;
 

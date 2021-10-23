@@ -51,6 +51,7 @@ const StyledTaskItemPage = styled.section`
     align-items: center;
     gap: 1rem;
     font-size: 1.2rem;
+
     .task-details-input {
       font-size: 1.1rem;
       border: 0;

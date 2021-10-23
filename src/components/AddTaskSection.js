@@ -1,11 +1,10 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { MdAdd } from "react-icons/md";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { FiMenu } from "react-icons/fi";
 import styled from "styled-components";
 import NewTaskPopup from "./NewTaskPopup";
 import { PopupDisplayContext } from "../context/PopupDisplayContext";
-import { TaskContext } from "../context/TaskContext";
 
 const StyledAddTaskSection = styled.section`
   width: 100%;
@@ -17,7 +16,11 @@ const StyledAddTaskSection = styled.section`
   align-items: center;
   justify-content: space-between;
   box-shadow: -3px 0 8px rgba(0, 0, 0, 0.2);
-  position: relative;
+  transition: all 200ms ease-in-out;
+
+  &.shrink {
+    height: 0;
+  }
 
   &::before {
     content: "";
@@ -34,7 +37,7 @@ const StyledAddTaskSection = styled.section`
     background-color: white;
   }
 
-  .add-task-btn {
+  #add-task-btn {
     height: 3.75rem;
     width: 3.75rem;
     border: 0;
@@ -44,6 +47,12 @@ const StyledAddTaskSection = styled.section`
     display: grid;
     place-content: center;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3), inset 0 0 5px rgba(0, 0, 0, 0.15);
+    transition: transform 200ms ease-in-out;
+
+    &.shrink {
+      transform: scale(0.5);
+    }
+
     svg {
       font-size: 2.5rem;
       color: #0f9d58;
@@ -84,31 +93,21 @@ const StyledAddTaskSection = styled.section`
 `;
 
 const AddTaskSection = () => {
-  const { handlePopupDisplay } = useContext(PopupDisplayContext);
-  const { dispatch } = useContext(TaskContext);
-  const [clearTasksDisplay, setClearTasksDisplay] = useState(false);
-
-  const handleClearOption = () => {
-    dispatch({
-      type: "CLEAR_COMPLETED_TASKS",
-    });
-  };
+  const { popupDisplay, handlePopupDisplay } = useContext(PopupDisplayContext);
 
   return (
-    <StyledAddTaskSection>
+    <StyledAddTaskSection className={popupDisplay ? "shrink" : ""}>
       <NewTaskPopup />
       <FiMenu id="hamburger" />
-      <button className="add-task-btn" onClick={() => handlePopupDisplay(true)}>
+      <button
+        id="add-task-btn"
+        className={popupDisplay ? "shrink" : ""}
+        onClick={() => handlePopupDisplay(true)}
+      >
         <MdAdd />
       </button>
-      <div
-        id="clear-completed-tasks-option"
-        className={clearTasksDisplay ? "open" : ""}
-      >
-        <button onClick={handleClearOption}>clear all completed tasks</button>
-      </div>
       <button id="dots">
-        <BiDotsVerticalRounded onClick={() => setClearTasksDisplay(true)} />
+        <BiDotsVerticalRounded />
       </button>
     </StyledAddTaskSection>
   );

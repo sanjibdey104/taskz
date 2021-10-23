@@ -55,32 +55,6 @@ export const TaskReducer = (state, action) => {
         }),
       };
 
-    case "UPDATE_TASK_TITLE":
-      return {
-        ...state,
-        tasks: state.tasks.map((task) => {
-          if (task.id === action.payload.id) {
-            task.title = action.payload.updatedTitle;
-          }
-          return task;
-        }),
-      };
-
-    case "CLEAR_COMPLETED_TASKS":
-      return {
-        tasks: state.tasks.reduce((acc, cur) => {
-          if (!cur.isCompleted) {
-            if (cur.subtasks) {
-              cur.subtasks = cur.subtasks.filter(
-                (subtask) => !subtask.isCompleted
-              );
-            }
-            acc.push(cur);
-          }
-          return acc;
-        }, []),
-      };
-
     default:
       return state;
   }

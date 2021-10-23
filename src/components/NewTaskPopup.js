@@ -1,4 +1,10 @@
-import React, { forwardRef, useContext, useState } from "react";
+import React, {
+  forwardRef,
+  useRef,
+  useContext,
+  useState,
+  useEffect,
+} from "react";
 import styled from "styled-components";
 import { PopupDisplayContext } from "../context/PopupDisplayContext";
 import { TaskContext } from "../context/TaskContext";
@@ -11,35 +17,43 @@ import { dateFormatter } from "../utils/dateFormatter";
 
 const StyledNewTaskPopup = styled.section`
   width: 100%;
-  height: 12rem;
-  border: 1px solid black;
+  height: 100%;
   position: absolute;
-  bottom: 0;
-  left: 0;
-  background-color: white;
-  padding: 0.75rem;
+  inset: 0;
+  backdrop-filter: blue(4px) opacity(0.8);
+  background-color: rgba(0, 0, 0, 0.3);
 
-  display: none;
+  display: flex;
+  visibility: hidden;
   flex-direction: column;
   z-index: 10;
+  transform: translateY(100%);
+  transition: transform 200ms ease-in-out;
 
   &.open {
-    display: flex;
+    transform: translateY(0);
+    visibility: visible;
   }
 
   .task-form {
-    height: 100%;
     width: 100%;
+    height: 12rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    margin-top: auto;
+    background-color: white;
+    z-index: 100;
+    padding: 0.75rem;
 
     #new-task-input {
       width: 100%;
-      border: 1px solid #adb5bd;
+      border: 0;
+      outline: 0;
       height: 2.5rem;
       font-size: 1.2rem;
       padding: 1rem 0.75rem;
+      caret-color: var(--google-blue);
     }
   }
 
@@ -58,7 +72,8 @@ const StyledNewTaskPopup = styled.section`
     gap: 1rem;
     padding: 0.5rem 0;
 
-    #task-details {
+    #task-details-logo {
+      color: var(--google-blue);
       font-size: 1.75rem;
     }
 
@@ -66,7 +81,11 @@ const StyledNewTaskPopup = styled.section`
       font-size: 1.5rem;
       background-color: white;
       border: 0;
-      color: #4c8bf5;
+      color: var(--google-blue);
+
+      svg {
+        font-weight: bold;
+      }
     }
 
     #save-task-btn {
@@ -80,6 +99,7 @@ const StyledNewTaskPopup = styled.section`
 `;
 
 const NewTaskPopup = () => {
+  const taskFormRef = useRef();
   const [taskValue, setTaskValue] = useState("");
   const { dispatch } = useContext(TaskContext);
   const { popupDisplay, handlePopupDisplay } = useContext(PopupDisplayContext);
@@ -117,19 +137,37 @@ const NewTaskPopup = () => {
     handlePopupDisplay(false);
   };
 
+  useEffect(() => {
+    let taskFormPopupHandler = (e) => {
+      if (!taskFormRef.current.contains(e.target)) {
+        handlePopupDisplay(false);
+      }
+    };
+    document.addEventListener("mousedown", taskFormPopupHandler);
+    return () => {
+      document.removeEventListener("mousedown", taskFormPopupHandler);
+    };
+  }, []);
+
   return (
     <StyledNewTaskPopup className={popupDisplay ? "open" : ""}>
-      <form className="task-form" onSubmit={(e) => handleFormSubmit(e)}>
+      <form
+        className="task-form"
+        onSubmit={(e) => handleFormSubmit(e)}
+        ref={taskFormRef}
+      >
         <input
           type="text"
           id="new-task-input"
           value={taskValue}
           onChange={handleTaskValue}
-          placeholder="Enter your task"
+          placeholder="New task"
+          // ref={taskInputRef}
+          autoFocus
         />
         <TaskDateDisplay taskDate={formattedTaskDate} />
         <div className="options">
-          <HiOutlineMenuAlt2 id="task-details" />
+          <HiOutlineMenuAlt2 id="task-details-logo" />
           <div className="date-picker">
             <ReactDatePicker
               dateFormat="dd/MM/yyyy"
