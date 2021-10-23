@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { MdAdd } from "react-icons/md";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { FiMenu } from "react-icons/fi";
@@ -84,6 +84,7 @@ const StyledAddTaskSection = styled.section`
 `;
 
 const AddTaskSection = () => {
+  const addTaskRef = useRef();
   const { handlePopupDisplay } = useContext(PopupDisplayContext);
   const { dispatch } = useContext(TaskContext);
   const [clearTasksDisplay, setClearTasksDisplay] = useState(false);
@@ -94,8 +95,22 @@ const AddTaskSection = () => {
     });
   };
 
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClick);
+    return () => {
+      document.addEventListener("mousedown", handleClick);
+    };
+  }, []);
+
+  function handleClick(e) {
+    if (!addTaskRef.current.contains(e.target)) {
+      handlePopupDisplay(false);
+      setClearTasksDisplay("");
+    }
+  }
+
   return (
-    <StyledAddTaskSection>
+    <StyledAddTaskSection ref={addTaskRef}>
       <NewTaskPopup />
       <FiMenu id="hamburger" />
       <button className="add-task-btn" onClick={() => handlePopupDisplay(true)}>

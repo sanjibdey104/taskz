@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import styled from "styled-components";
 import { PopupDisplayContext } from "../context/PopupDisplayContext";
 import AddTaskSection from "./AddTaskSection";
@@ -18,7 +18,6 @@ const StyledHome = styled.section`
 `;
 
 const Home = () => {
-  const { handlePopupDisplay } = useContext(PopupDisplayContext);
   return (
     <StyledHome>
       <Header />
