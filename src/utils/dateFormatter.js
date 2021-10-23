@@ -4,5 +4,9 @@ export const dateFormatter = (inputDate) => {
     day: "numeric",
     month: "short",
   };
-  return inputDate.toLocaleDateString("en-US", dateFormatOptions);
+  let refreshedDate = new Date(`${inputDate}`);
+  inputDate =
+    refreshedDate.toLocaleDateString("en-US", dateFormatOptions) ||
+    inputDate.toLocaleDateString("en-US", dateFormatOptions);
+  return inputDate;
 };

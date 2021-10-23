@@ -48,10 +48,19 @@ export const TaskReducer = (state, action) => {
       return {
         ...state,
         tasks: state.tasks.map((task) => {
-          console.log(action.payload);
           if (task.id === action.payload.id) {
-            console.log(task);
             task.taskDate = action.payload.updatedTaskDate;
+          }
+          return task;
+        }),
+      };
+
+    case "UPDATE_TASK_TITLE":
+      return {
+        ...state,
+        tasks: state.tasks.map((task) => {
+          if (task.id === action.payload.id) {
+            task.title = action.payload.updatedTitle;
           }
           return task;
         }),

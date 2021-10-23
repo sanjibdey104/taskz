@@ -3,6 +3,7 @@ import { BsCalendarCheck } from "react-icons/bs";
 import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import styled from "styled-components";
+import { dateFormatter } from "../utils/dateFormatter";
 
 const StyledDatePicker = styled.div`
   .custom-date-picker {
@@ -14,8 +15,6 @@ const StyledDatePicker = styled.div`
 `;
 
 const TaskDatePicker = ({ taskDate, handleTaskDateUpdate }) => {
-  const currentDay = new Date();
-
   const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
     <button
       type="button"
@@ -31,7 +30,7 @@ const TaskDatePicker = ({ taskDate, handleTaskDateUpdate }) => {
     <StyledDatePicker>
       <ReactDatePicker
         dateFormat="dd/MM/yyyy"
-        minDate={currentDay}
+        minDate={new Date()}
         selected={taskDate}
         onChange={(date) => handleTaskDateUpdate(date)}
         customInput={<ExampleCustomInput />}

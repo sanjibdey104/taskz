@@ -6,6 +6,8 @@ import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { BsCalendarCheck } from "react-icons/bs";
 import { HiOutlineMenuAlt2 } from "react-icons/hi";
+import TaskDateDisplay from "./TaskDateDisplay";
+import { dateFormatter } from "../utils/dateFormatter";
 
 const StyledNewTaskPopup = styled.section`
   width: 100%;
@@ -84,11 +86,7 @@ const NewTaskPopup = () => {
 
   const currentDay = new Date();
   const [taskDate, setTaskDate] = useState(currentDay);
-  const dateFormatOptions = {
-    weekday: "short",
-    day: "numeric",
-    month: "short",
-  };
+  const formattedTaskDate = dateFormatter(taskDate);
 
   const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
     <button
@@ -129,15 +127,13 @@ const NewTaskPopup = () => {
           onChange={handleTaskValue}
           placeholder="Enter your task"
         />
-        <div className="selected-task-date">
-          {taskDate.toLocaleDateString("en-US", dateFormatOptions)}
-        </div>
+        <TaskDateDisplay taskDate={formattedTaskDate} />
         <div className="options">
           <HiOutlineMenuAlt2 id="task-details" />
           <div className="date-picker">
             <ReactDatePicker
               dateFormat="dd/MM/yyyy"
-              minDate={currentDay}
+              minDate={new Date()}
               selected={taskDate}
               onChange={(date) => setTaskDate(date)}
               customInput={<ExampleCustomInput />}

@@ -113,6 +113,7 @@ const TaskItemPage = () => {
 
   const [taskDate, setTaskDate] = useState(task.taskDate);
   const formattedTaskDate = dateFormatter(task.taskDate);
+  let correctDateFormat = new Date(task.taskDate) || task.taskDate;
 
   const handleTaskDateUpdate = (updatedTaskDate) => {
     setTaskDate(updatedTaskDate);
@@ -173,7 +174,7 @@ const TaskItemPage = () => {
       </div>
       <div className="task-date">
         <TaskDatePicker
-          taskDate={taskDate}
+          taskDate={correctDateFormat}
           handleTaskDateUpdate={handleTaskDateUpdate}
         />
         <TaskDateDisplay taskDate={formattedTaskDate} />
@@ -191,6 +192,7 @@ const TaskItemPage = () => {
           className="subtask-input"
           value={subtaskValue}
           onChange={handlSubtaskValueChange}
+          placeholder="new subtask..."
         />
         <button
           type="submit"
