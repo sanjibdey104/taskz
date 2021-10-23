@@ -137,7 +137,7 @@ const NewTaskPopup = () => {
           <div className="date-picker">
             <ReactDatePicker
               dateFormat="dd/MM/yyyy"
-              minDate={new Date()}
+              minDate={currentDay}
               selected={taskDate}
               onChange={(date) => setTaskDate(date)}
               customInput={<ExampleCustomInput />}

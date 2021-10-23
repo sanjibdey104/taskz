@@ -47,7 +47,6 @@ const TaskItem = ({ task }) => {
   const { id, title, taskDate, subtasks } = task;
 
   const formattedTaskDate = dateFormatter(taskDate);
-  console.log(task);
   const ongoingSubtasks = subtasks.filter((task) => !task.isComplete);
 
   const handleTaskStatus = (task) => {

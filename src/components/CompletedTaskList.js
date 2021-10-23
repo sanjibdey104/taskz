@@ -60,7 +60,6 @@ const CompletedTaskList = () => {
   const { taskState } = useContext(TaskContext);
   let { tasks } = taskState;
   const [listDisplay, setListDisplay] = useState(false);
-  console.log(taskState);
 
   let completedTasks = [];
 
